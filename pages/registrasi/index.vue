@@ -15,13 +15,7 @@
     </form>
     <UDivider class="mt-5" label="OR" />
     <div class="login-provider">
-      <UButton
-        size="xl"
-        class="btn-daftar text-[#2CBF95]"
-        variant="outline"
-        icon="i-logos:google-icon"
-        label="Google"
-      />
+      <BaseButtonGoogleSignIn />
       <UButton
         size="xl"
         class="btn-daftar text-[#2CBF95]"
@@ -38,6 +32,8 @@
 </template>
 
 <script lang="ts" setup>
+import { BaseButtonGoogleSignIn } from "#components";
+
 definePageMeta({
   middleware: ["must-not-auth"],
 });

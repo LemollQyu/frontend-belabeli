@@ -29,7 +29,10 @@ export const useSession = defineStore("session", () => {
     };
   }
 
+  // function untuk logout
+
   function logout() {
+    // token set kosong dan profile value set kosong
     token.value = "";
     profile.value = {
       name: "",
