@@ -45,6 +45,7 @@
         <h1 class="font-medium justify-start mb-2">Menu akun</h1>
 
         <UButton
+          to="/informasi-akun"
           icon="i-tdesign:user-1-filled"
           size="md"
           variant="ghost"
@@ -140,6 +141,10 @@
 </template>
 
 <script setup>
+definePageMeta({
+  layout: "homeprofile",
+});
+
 const session = useSession();
 
 console.log(session.token, "ini tokennya");

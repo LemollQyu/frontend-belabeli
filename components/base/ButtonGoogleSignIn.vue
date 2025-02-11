@@ -1,6 +1,6 @@
 <template>
   <ClientOnly>
-    <div ref="wrapperGoogleButton">
+    <div class="border" ref="wrapperGoogleButton">
       <GoogleSignInButton
         class="google-button"
         :width="wrapperGoogleButton?.offsetWidth"
@@ -76,6 +76,6 @@ async function handleLoginSuccess(response) {
 
 <style scoped>
 .google-button {
-  @apply w-full;
+  @apply w-80  border rounded-md;
 }
 </style>

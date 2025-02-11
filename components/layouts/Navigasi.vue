@@ -12,8 +12,8 @@
 
 <style>
 .navigasi-bottom {
-  @apply w-full sm:w-[400px] h-12 bg-white border;
-  @apply absolute bottom-0;
+  @apply w-full sm:w-[400px] h-12 bg-white;
+  @apply fixed bottom-0;
   @apply flex justify-around items-center;
 }
 </style>

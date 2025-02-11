@@ -4,14 +4,22 @@
       Daftar Sekarang <span class="text-[#2CBF95]">Dan Belanja Sepuasmu</span>
     </h1>
     <form class="mt-7 space-y-7" @submit.prevent="handleSubmit">
-      <UFormGroup size="xl">
+      <UFormGroup :error="v$.email.$errors?.[0]?.$message" size="xl">
         <UInput
+          v-model="registrationForm.email"
           color="primary"
           class="w-80 !text-black bg-[#DEF7F0]"
           placeholder="you@example.com"
         />
       </UFormGroup>
-      <UButton type="submit" class="btn-daftar" size="xl">Daftar</UButton>
+      <UButton
+        :loading="status === 'pending'"
+        type="submit"
+        block
+        class="btn-daftar"
+        size="xl"
+        >Daftar</UButton
+      >
     </form>
     <UDivider class="mt-5" label="OR" />
     <div class="login-provider">
@@ -31,16 +39,49 @@
   </div>
 </template>
 
-<script lang="ts" setup>
+<script setup>
 import { BaseButtonGoogleSignIn } from "#components";
+import useVuelidate from "@vuelidate/core";
+import { email, required } from "@vuelidate/validators";
 
 definePageMeta({
   middleware: ["must-not-auth"],
 });
 const router = useRouter();
-const handleSubmit = () => {
-  router.push("/registrasi/form");
+const { registrationForm } = storeToRefs(useSession());
+
+const rules = {
+  email: { required, email },
 };
+
+const $externalResults = ref({});
+
+const v$ = useVuelidate(rules, registrationForm, {
+  $autoDirty: true,
+  $externalResults,
+});
+
+const { status, error, execute } = useSubmit("/server/api/register");
+
+async function handleSubmit() {
+  $externalResults.value = {};
+
+  const isValid = await v$.value.$validate();
+  if (!isValid) return;
+
+  await execute({
+    email: registrationForm.value.email,
+  });
+
+  if (error.value) {
+    $externalResults.value = error.value.data?.meta?.validations || {};
+    return;
+  }
+
+  if (status.value === "success") {
+    router.push("/registrasi/form");
+  }
+}
 </script>
 
 <style scoped>

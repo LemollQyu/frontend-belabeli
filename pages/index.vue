@@ -5,7 +5,7 @@ useSeoMeta({
 });
 
 definePageMeta({
-  layout: "homepage",
+  layout: "homeprofile",
   header: {
     title: "homepage",
   },

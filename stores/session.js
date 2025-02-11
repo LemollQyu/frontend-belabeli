@@ -42,7 +42,7 @@ export const useSession = defineStore("session", () => {
       phone: null,
       store_name: "",
       gender: null,
-      birth_date: null,
+      birth_day: null,
       balance: 0,
     };
     tokenCookie.value = undefined;
